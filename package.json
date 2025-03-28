@@ -1,17 +1,14 @@
 {
   "name": "raltimechatapp",
   "version": "1.0.0",
-  "description": "A real-time chat application",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "install-all": "cd backend/src && npm install && cd ../../frontend && npm install",
-    "build": "npm run install-all && npm run build --prefix frontend",
-    "start": "concurrently \"cd backend/src && npm start\" \"cd frontend && npm run dev\""
-  },
-  "dependencies": {
-    "concurrently": "^8.2.2"
+    "build": "npm install --prefix backend/src && npm install --prefix frontend/flowTalk && npm run build --prefix frontend/flowTalk",
+    "start": "npm run start --prefix backend/src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC"
 }
+
