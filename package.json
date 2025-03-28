@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix backend/src && npm install --prefix frontend/flowTalk && npm run build --prefix frontend/flowTalk",
+    "build": "npm install --prefix backend/src && npm install --prefix frontend/flowTalk && npm run build --prefix frontend/flowTalk && npm run dev --prefix frontend/flowTalk"
       "start": "npm run start --prefix backend/src && npm run dev --prefix frontend/flowTalk"
   },
   "keywords": [],
