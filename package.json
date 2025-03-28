@@ -1,0 +1,13 @@
+{
+  "name": "raltimechatapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend/src && npm install --prefix frontend/flowTalk && npm run build --prefix frontend/flowTalk",
+    "start": "npm run start --prefix backend/src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
