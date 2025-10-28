@@ -10,7 +10,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       'http://localhost:5173', 
-      'https://flourishing-halva-0f89d4.netlify.app'
+      'https://flowtalk554.onrender.com'
     ],
     methods: ['GET', 'POST'],
   }
