@@ -9,12 +9,12 @@ export const generateToken = (userId, res) => {
     expiresIn: "4d"
   })
 
-  res.cookie("jwt", token, {
-    maxAge: 4 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV !== "development"
-  })
+res.cookie("jwt", token, {
+  httpOnly: true,
+  maxAge: 15 * 24 * 60 * 60 * 1000,
+  sameSite: "none", // <-- 1. Allow cross-domain
+  secure: true,       // <-- 2. "sameSite: none" REQUIRES secure
+});
 
   return token;
 }
