@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { axiosInstance } from "../lib/axios.js"
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
-const BASE_URL = "https://flowtalkkkk.onrender.com";
+const BASE_URL = "https://flow-talk-realtime-chatting-app-h72.vercel.app/";
 
 const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -17,7 +17,7 @@ const useAuthStore = create((set, get) => ({
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/cheak", {
-        withCredentials: true, // ✅ needed
+        withCredentials: true,
       });
       set({ authUser: res.data });
       get().connectSocket();
