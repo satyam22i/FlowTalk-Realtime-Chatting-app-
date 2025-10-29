@@ -1,35 +1,37 @@
-import express from 'express';
-import authRoutes from './routes/auth.route.js';
-import dotenv from 'dotenv';
-import { connectDB } from './lib/db.js';
-import cookieParser from 'cookie-parser';
-import messageRoutes from './routes/message.routes.js';
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import cors from "cors";
-import { app, server } from './lib/socket.js';
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.routes.js";
+import { connectDB } from "./lib/db.js";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to the database
+// ✅ Connect to DB
 connectDB();
 
+// ✅ Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://flowtalk554.onrender.com'],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}));
+// ✅ CORS configuration
+app.use(
+  cors({
+    origin: true,          // allow all origins dynamically
+    credentials: true,     // allow cookies & credentials
+  })
+);
 
-// Define API routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
 
-// Start the server
+// ✅ Start Server
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
