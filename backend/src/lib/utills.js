@@ -7,12 +7,13 @@ const generateToken = (userId, res) => {
     expiresIn: "4d",
   });
 
-  res.cookie("jwt", token, {
-    httpOnly: true,
-    secure: true,       
-    sameSite: "None",   
-    maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
-  });
+res.cookie("jwt", token, {
+  httpOnly: true,
+  maxAge: 15 * 24 * 60 * 60 * 1000,
+  sameSite: "none",
+  secure: true,
+});
+
 
   return token;
 };
