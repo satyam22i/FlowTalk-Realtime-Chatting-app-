@@ -33,7 +33,7 @@ const useAuthStore = create((set, get) => ({
     set({ isSigningUp: true });
     try {
       const res = await axiosInstance.post("/auth/signup", data, {
-        withCredentials: true, // ✅ needed
+        withCredentials: true, 
       });
       set({ authUser: res.data });
       toast.success("Account created successfully");
@@ -48,7 +48,7 @@ const useAuthStore = create((set, get) => ({
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout", {}, {
-        withCredentials: true, // ✅ needed
+        withCredentials: true, 
       });
       get().disconnectSocket();
       set({ authUser: null });
@@ -62,7 +62,7 @@ const useAuthStore = create((set, get) => ({
     set({ isLoggingIn: true });
     try {
       const res = await axiosInstance.post("/auth/signin", data, {
-        withCredentials: true, // ✅ needed
+        withCredentials: true, 
       });
       set({ authUser: res.data });
       toast.success("Logged in successfully");
@@ -78,7 +78,7 @@ const useAuthStore = create((set, get) => ({
     set({ isUpdatingProfile: true });
     try {
       const res = await axiosInstance.put("/auth/update-profile", data, {
-        withCredentials: true, // ✅ needed
+        withCredentials: true, 
       });
       set({ authUser: res.data.user });
       toast.success("Profile updated successfully");
@@ -95,7 +95,7 @@ const useAuthStore = create((set, get) => ({
 
     const socket = io(BASE_URL, {
       query: { userId: authUser._id },
-      withCredentials: true, // ✅ socket also needs this for auth cookies
+      withCredentials: true, 
     });
 
     socket.connect();
