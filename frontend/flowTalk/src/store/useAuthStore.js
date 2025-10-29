@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { axiosInstance } from "../lib/axios.js"
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
-const BASE_URL = "http://localhost:5000"
+const BASE_URL = "https://flowtalkkkk.onrender.com"
 
 
 const useAuthStore = create((set, get) => ({
