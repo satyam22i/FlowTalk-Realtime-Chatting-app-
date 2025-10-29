@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { axiosInstance } from "../lib/axios.js"
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
-const BASE_URL = "https://flow-talk-realtime-chatting-app-h72.vercel.app";
+const BASE_URL = "https://flow-talk-realtime-chatting-app-826.vercel.app";
 
 const useAuthStore = create((set, get) => ({
   authUser: null,
