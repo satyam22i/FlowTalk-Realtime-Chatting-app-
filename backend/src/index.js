@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: "https://flowtalk554.onrender.com", 
+  origin: "https://flowtalk.vercel.app", 
   credentials: true, 
 }));
 
