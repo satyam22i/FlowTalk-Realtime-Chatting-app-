@@ -2,6 +2,6 @@ import axios from "axios";
 
 
 export const axiosInstance = axios.create({
-  baseURL: "https://flowtalkkkk.onrender.com/api",
+  baseURL: "https://flowtalkkkk.onrender.com/api/",
   withCredentials: true,
 })
