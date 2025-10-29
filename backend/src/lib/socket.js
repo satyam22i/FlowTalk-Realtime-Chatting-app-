@@ -10,7 +10,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       'http://localhost:5173', 
-      'https://flowtalk554.onrender.com'
+      'https://flowtalk.vercel.app'
     ],
     methods: ['GET', 'POST'],
   }
