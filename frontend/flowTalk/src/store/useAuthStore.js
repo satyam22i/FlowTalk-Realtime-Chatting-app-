@@ -2,8 +2,7 @@ import { create } from 'zustand'
 import { axiosInstance } from "../lib/axios.js"
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
-const BASE_URL = "https://flowtalkkkk.onrender.com"
-
+const BASE_URL = "https://flowtalkkkk.onrender.com";
 
 const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -17,11 +16,11 @@ const useAuthStore = create((set, get) => ({
 
   checkAuth: async () => {
     try {
-      
-      const res = await axiosInstance.get("/auth/cheak"); 
+      const res = await axiosInstance.get("/auth/cheak", {
+        withCredentials: true, // ✅ needed
+      });
       set({ authUser: res.data });
       get().connectSocket();
-
     } catch (error) {
       console.log("Error in checkAuth:", error);
       set({ authUser: null });
@@ -31,13 +30,14 @@ const useAuthStore = create((set, get) => ({
   },
 
   signup: async (data) => {
-    set({ isSigningUp: true })
+    set({ isSigningUp: true });
     try {
-      const res = await axiosInstance.post("/auth/signup", data);
+      const res = await axiosInstance.post("/auth/signup", data, {
+        withCredentials: true, // ✅ needed
+      });
       set({ authUser: res.data });
-      toast.success("Account created successfully"); 
+      toast.success("Account created successfully");
       get().connectSocket();
-
     } catch (error) {
       toast.error(error.response?.data?.message);
     } finally {
@@ -47,11 +47,12 @@ const useAuthStore = create((set, get) => ({
 
   logout: async () => {
     try {
-      await axiosInstance.post("/auth/logout");
+      await axiosInstance.post("/auth/logout", {}, {
+        withCredentials: true, // ✅ needed
+      });
       get().disconnectSocket();
       set({ authUser: null });
-      toast.success("Logged out successfully"); 
-
+      toast.success("Logged out successfully");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
@@ -60,11 +61,12 @@ const useAuthStore = create((set, get) => ({
   login: async (data) => {
     set({ isLoggingIn: true });
     try {
-      const res = await axiosInstance.post("/auth/signin", data);
+      const res = await axiosInstance.post("/auth/signin", data, {
+        withCredentials: true, // ✅ needed
+      });
       set({ authUser: res.data });
       toast.success("Logged in successfully");
       get().connectSocket();
-
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     } finally {
@@ -75,14 +77,11 @@ const useAuthStore = create((set, get) => ({
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
-  
-      const res = await axiosInstance.put("/auth/update-profile", data);
-
-
-      set({ authUser: res.data.user }); 
-      
-      toast.success("Profile updated successfully"); // Corrected spelling
-
+      const res = await axiosInstance.put("/auth/update-profile", data, {
+        withCredentials: true, // ✅ needed
+      });
+      set({ authUser: res.data.user });
+      toast.success("Profile updated successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Error uploading profile");
     } finally {
@@ -92,13 +91,11 @@ const useAuthStore = create((set, get) => ({
 
   connectSocket: () => {
     const { authUser, socket: currentSocket } = get();
-    // Check if user exists and if socket isn't already connected
-    if (!authUser || currentSocket?.connected) return; 
+    if (!authUser || currentSocket?.connected) return;
 
     const socket = io(BASE_URL, {
-      query: {
-        userId: authUser._id
-      }
+      query: { userId: authUser._id },
+      withCredentials: true, // ✅ socket also needs this for auth cookies
     });
 
     socket.connect();
@@ -107,9 +104,8 @@ const useAuthStore = create((set, get) => ({
       set({ onlineUsers: userIds });
     });
 
-    set({ socket: socket });
+    set({ socket });
   },
-
 
   disconnectSocket: () => {
     const { socket } = get();
@@ -117,8 +113,7 @@ const useAuthStore = create((set, get) => ({
       socket.disconnect();
       set({ socket: null, onlineUsers: [] });
     }
-  }
-
+  },
 }));
 
 export default useAuthStore;
